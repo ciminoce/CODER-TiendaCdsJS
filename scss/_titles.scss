@@ -1,0 +1,32 @@
+.main__title{
+    color: orange;
+    font-size: 3rem;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
+    border-style: solid;
+    border-color: gray;
+    border-width: 0.8rem;
+    
+}
+
+.main__subtitulo{
+    color:orangered;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: underline;
+    padding: 10px;
+    background-color: black;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    &--izq{
+        text-align: left;
+    }    
+}
+
+.main__encabezado{
+    background-color: black;
+}
+

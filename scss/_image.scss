@@ -1,0 +1,44 @@
+@import "./variables";
+@import "./mediaQueries";
+.image{
+    border: $someBlue;
+    border-style: groove;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 1rem;
+    &--logo{
+        border:none;
+
+    }
+    &--local{
+        margin:0.5rem;
+        width: 100%;
+        &:hover{
+            filter: blur(4px);
+        }
+        @include tablet {
+            width: 50%;
+        }
+        @include laptop  {
+            width: 50%;
+            
+        }
+    }
+
+    &--ranking{
+        width: 250px;
+        
+    }
+    &--follow{
+        width: 50px;
+        height:50px;
+        margin:0;
+        &--footer{
+            border:none;  
+        }
+    }
+} 
+.card__imagen:hover{
+    transform: scaleX(-1);
+}
+

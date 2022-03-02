@@ -1,0 +1,54 @@
+.card__numero{
+    width: 3rem;
+}
+.card__container{
+    // min-height: 100vh;
+    background-image: url("../img/Yes-inner.jpg");
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 80px;
+}
+.card{
+    height: 400px;
+    width: 280px;
+    border:8px solid #fff;
+    box-shadow: 0 3px 5px #000;
+    overflow: hidden;
+    margin: 20px 15px;
+    &:hover &__img{
+        filter: grayscale(0%);
+    }
+    &:hover &__details{
+        display: flex;
+    }
+    &__img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        filter: grayscale(1);
+    }
+    
+    &__info{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+    &__title{
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-size: 1.5rem;
+        color: grey;
+        text-transform: capitalize;
+        &--subtitle{
+            color:red;
+            font-size: 1.4rem;
+        }
+    }
+    &__details{
+        display: none;
+        
+    }
+}

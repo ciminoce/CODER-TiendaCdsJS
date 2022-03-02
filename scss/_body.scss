@@ -1,0 +1,14 @@
+@import "./variables";
+@import "./mediaQueries";
+body {
+    background-color:$tomato; 
+    @include tablet{
+        background-color:rgb(216, 94, 13);
+        
+    }
+    @include laptop{
+        background-color: rgb(226, 129, 18);
+        
+    }
+    
+}

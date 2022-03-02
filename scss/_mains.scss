@@ -1,0 +1,95 @@
+@import "./variables";
+@import "./mediaQueries";
+.main__closeTo{
+    background: linear-gradient(to left,$tomato, $someBlue) ;
+}
+.main__info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__text{
+        font-size: 1.5rem;
+    }
+    
+}
+.main__destacados{
+    background: linear-gradient(to left,$someBlue, $tomato) ;
+    .main__destacados__col{
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+.main__disqueria{
+    &__encabezado{
+        background-color: black;
+    }
+ /*    &__carrito{
+        font-size: 2rem;
+        color: red;
+        &__icon{
+            font-size: 2rem;
+            color:red;    
+        }
+    }  */
+    &__busqueda{
+        background: linear-gradient(to left,$tomato, $someBlue) ;
+        margin-bottom: 3px;
+    }
+    &__busqueda__title{
+        margin-left: 10px;
+    }
+    &__busqueda__opciones{
+        margin-bottom: 10px;
+    }
+    &__detalles{
+        background: linear-gradient(to left,$someBlue, $tomato) ;
+        &__row{
+                margin-bottom: 3px;
+            }
+        &__col{
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+   
+
+}
+.main__disqueria__carrito{
+    font-size: 2rem;
+    color: red;
+   
+}
+
+.main__disqueria__carrito__imagen{
+    font-size: 2rem;
+    color: red;
+    background-color: black;
+}
+.main__contacto{
+    
+    background-image: url("../img/Yes-inner.jpg");
+    background-size: cover;
+    min-height: 1000px;
+    &__form{
+        
+        display: flex;
+        flex-direction: column;
+        max-width: 600px;
+        padding: 16px;
+        background-color: rgba(189, 189, 189, 0.5);;
+        margin:auto;
+        @include tablet{
+            background-color:rgba(211, 19, 19, 0.6);;
+            
+        }
+        @include laptop{
+            background-color: rgba(87, 18, 214, 0.5);;
+            
+        }
+    }
+}

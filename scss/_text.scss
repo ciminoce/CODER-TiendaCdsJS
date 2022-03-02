@@ -1,0 +1,47 @@
+@import "./variables";
+
+$alignment:(
+    Centro:center,
+    Izq:left,
+    Der:right,
+    Just:justify,
+);
+
+@each $name, $value in $alignment {
+    .textoAlineado#{$name}{
+        text-align: $value;
+    }
+    
+}
+
+p.estilo-1::first-letter{
+	font-size:2em;
+	font-family:serif;
+}
+.separatorParagraph{
+    margin: 0.5rem;
+}
+
+.textUpper{
+    text-transform: $mayusculas;
+}
+
+.textComicSans{
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+.textlarge{
+    font-size: 20px;
+}
+
+.textAlignCenter{
+    text-align: center;
+}
+
+.textAlignRight{
+    text-align: right;
+}
+
+.textInter{
+    line-height: 1;
+}
