@@ -41,7 +41,7 @@ function noHayProductos(){
 }
 function hayProductos(){
     /* let footerCarrito=document.getElementsByClassName('modal-footer')[0]; */
-    footerCarrito.style.display= "block";
+    footerCarrito.style.display= "flex";
 }
 function quitarMensajeCarritoVacio(child){
     detalleBody.removeChild(child);

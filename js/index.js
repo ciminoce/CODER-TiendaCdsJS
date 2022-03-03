@@ -171,12 +171,45 @@ console.log(carritoDeCompras);
 function actualizarStock(cd,resta, cantidad){
     
     resta?cd.stock-=cantidad:cd.stock+=cantidad;
-    
+    console.log(cd.id);
+    console.log(cantidad);
     document.getElementById(`stock${cd.id}`).innerHTML=`<p id="stock${cd.id}">Stock: <strong>${cd.stock}</strong></p>`;
     cd.stock==0 ? deshabilitarBoton(cd.id):habilitarBoton(cd.id);
     
 };
+/* funcion para agregar al carrito desde el local storage */
+function agregarAlCarritoDesdeLocal(idCd, cantidad) {
+    
+    let cdComprar = cds.find(elemento => elemento.id ==idCd);
+    
+    cdComprar.cantidad=cantidad;
+    carritoDeCompras.push(cdComprar);
+    actualizarCarritoDeCompras();
+    agregarHtmlCarrito(cdComprar);
+    actualizarStock(cdComprar,true,cantidad);//actualiza el stock en el array
 
+    Toastify({
+        text: "CD agregado al carrito",
+        duration: 1500,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: false,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
+        
+
+    
+    document.getElementById(`inputCantidad${id}`).value=cantidad;
+    
+
+
+}
 
 /* funcion para agregar al html del carrito */
 function agregarHtmlCarrito(cd){
@@ -270,7 +303,8 @@ function recuperarCarrito(){
 
     if(leerLocalStorage){
         leerLocalStorage.forEach(cd => {
-        agregarAlCarrito(cd.id)
+        //agregarAlCarrito(cd.id)
+        agregarAlCarritoDesdeLocal(cd.id, cd.cantidad);
         });
     }
 }
