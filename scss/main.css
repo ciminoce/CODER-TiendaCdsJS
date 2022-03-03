@@ -214,10 +214,9 @@ body {
   }
 }
 
-.main__carrito {
-  height: 65vh;
-}
-
+/* .main__carrito{
+    height: 65vh;
+} */
 .image {
   border: #6495ed;
   border-style: groove;

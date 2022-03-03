@@ -79,7 +79,8 @@ function buscarRepetido(id){
 /* funcion para agregar al carrito */
 function agregarAlCarrito(idCd) {
     let cdRepetido=buscarRepetido(idCd);
-console.log(carritoDeCompras);
+
+    console.log(carritoDeCompras);
     
     if(cdRepetido){
         let {precio, stock, id}=cdRepetido;//desestructurando el obj Cd
@@ -121,7 +122,7 @@ console.log(carritoDeCompras);
             
         }    
         document.getElementById(`inputCantidad${id}`).value=1;
-
+        localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
         
     }else{
             let cdComprar = cds.find(elemento => elemento.id ==idCd);
@@ -186,26 +187,12 @@ function agregarAlCarritoDesdeLocal(idCd, cantidad) {
     carritoDeCompras.push(cdComprar);
     actualizarCarritoDeCompras();
     agregarHtmlCarrito(cdComprar);
-    actualizarStock(cdComprar,true,cantidad);//actualiza el stock en el array
 
-    Toastify({
-        text: "CD agregado al carrito",
-        duration: 1500,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: false,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-        },
-        onClick: function(){} // Callback after click
-    }).showToast();
+    // lo comenté para ver lo del localStorage
+    //actualizarStock(cdComprar,true,cantidad);//actualiza el stock en el array
+
         
-
-    
-    document.getElementById(`inputCantidad${id}`).value=cantidad;
+    //document.getElementById(`inputCantidad${cdComprar.id}`).value=cantidad;
     
 
 
