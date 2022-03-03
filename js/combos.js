@@ -1,4 +1,52 @@
 /* funcion para llenar los combos */
+/* funcion para obtener los distintos intérpretes */
+function obtenerInterpretes(arrayCds){
+    //Busco los nombres de los intérpretes únicamente
+    console.log(arrayCds);
+    let allInterpretes=[];
+    allInterpretes=arrayCds.reduce((allInterpretes, claseCd)=>{
+        allInterpretes.push(claseCd.interprete);
+        return Array.from(new Set(allInterpretes));
+    },[]);
+    /* console.log(allInterpretes);
+    let arrayPreFiltrado=[];
+    arrayCds.forEach(element => {
+        arrayPreFiltrado.push(element.interprete);
+    });
+    let arrayFiltrado=[];
+    for (let index = 0; index < arrayPreFiltrado.length; index++) {
+        const element = arrayPreFiltrado[index];
+        if (arrayFiltrado.indexOf(element)==-1) {
+            arrayFiltrado.push(element);    
+        }
+    
+    } */
+    return allInterpretes;
+}
+
+/* funcion para obtener los distintos intérpretes */
+function obtenerEstilos(arrayCds){
+  //Busco los nombres de los estilos únicamente
+    let allEstilos=[];
+    allEstilos=arrayCds.reduce((allEstilos,claseCd)=>{
+        allEstilos.push(claseCd.estilo);
+        return Array.from(new Set(allEstilos));
+    },[]);
+    /* let arrayPreFiltrado=[];
+    arrayCds.forEach(element => {
+        arrayPreFiltrado.push(element.estilo);
+    });
+    
+    let arrayFiltrado=[];
+    for (let index = 0; index < arrayPreFiltrado.length; index++) {
+        const element = arrayPreFiltrado[index];
+        if (arrayFiltrado.indexOf(element)==-1) {
+            arrayFiltrado.push(element);    
+        }
+    
+    } */
+    return allEstilos;
+}
 function llenarCombos(arrayCds){
 /* Combos */
     const comboEstilos=document.getElementById('estiloBusqueda');

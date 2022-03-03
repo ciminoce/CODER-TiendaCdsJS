@@ -78,6 +78,14 @@
     color:red;
     font-size: 1rem;
 }
+.carrito-footer{
+    display:flex;
+    justify-content: flex-end;
+    margin-right: 50px;
+}
+.carritoBoton{
+    margin-left: 5px;
+}
   /* Add Animation */
 @-webkit-keyframes slideIn {
     from {bottom: -300px; opacity: 0} 

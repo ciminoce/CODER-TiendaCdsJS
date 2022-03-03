@@ -23,6 +23,10 @@ body {
   }
 }
 
+.bodyCarrito {
+  background-color: white;
+}
+
 .header {
   width: 100%;
   display: -webkit-box;
@@ -208,6 +212,10 @@ body {
   .main__contacto__form {
     background-color: rgba(87, 18, 214, 0.5);
   }
+}
+
+.main__carrito {
+  height: 65vh;
 }
 
 .image {
@@ -562,6 +570,20 @@ legend.scheduler-border {
 .carrito-vacio {
   color: red;
   font-size: 1rem;
+}
+
+.carrito-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 50px;
+}
+
+.carritoBoton {
+  margin-left: 5px;
 }
 
 /* Add Animation */

@@ -9,7 +9,7 @@
         
         <meta name="description" content="Tienda virtual de CDs de música en línea especializado en rock progresivo y música celta">
         <meta name="keywords"  content="MÚSICA, VENTA, CD, ROCK, ROCK PROGRESIVO, CELTA, MÚSICA CELTA, TIENDA VIRTUAL">
-        <title>Tienda Virtual</title>
+        <title>Carrito</title>
         
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
         <script src="https://kit.fontawesome.com/766389a881.js" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="./scss/main.css">
     </head>
 
-<body>
+<body class="bodyCarrito">
     <header class="header d-flex flex-lg-row flex-column justify-content-between">
         <nav class="header__navbar navbar navbar-expand-lg">
             <div class="header__navbar__container container-fluid">
@@ -67,81 +67,36 @@
         </div>
     </header>
     
-    <main class="main__disqueria">
-        <form class="main__disqueria__form" action="#" method="#">
-            <div class="main__disqueria__encabezado d-flex justify-content-between align-items-center ">
-                <h1 class="main__disqueria__title main__subtitulo main__subtitulo--izq">Tienda Virtual</h1>
-                
-                <div  class="main__disqueria__carrito mx-3">
-                    <!-- Button trigger modal -->
+    <main class="main__carrito">
+        <h1 class="main__subtitulo main__subtitulo--izq">Carrito de Compras</h1>
+        <div class="carrito-Detalle">
+                <table id="carrito-table" class="table table-hover">
+                    <thead>
+                        <tr class="carrito-titles">
+                            <th style="width:20%">Imagen</th>
+                            <th style="width:30%">Descripción</th>
+                            <th style="width:15%">P. Unit</th>
+                            <th style="width:10%">Cantidad</th>
+                            <th style="width:15%">Subtotal</th>
+                            <th style="width:10%"></th>
+                        </tr>    
+                    </thead>
+                    <tbody id="detallesTbody">
+
+                    </tbody>
                     
-                    <!-- <button class="carrito__boton" data-bs-toggle="modal" data-bs-target="#carritoModal"> -->
-                    <button class="carrito__boton" id="miBotonCerrarModal">
-                        <i class="carrito__imagen fas fa-cart-plus" aria-hidden="true"></i>
-                        <span class="numberCircle" id="contadorCarrito"></span>    
-                    </button>
+
                     
-                </div>
-                    
+                </table>
                 
             </div>
-            <div class="main__disqueria__container">
-                <section class="main__disqueria__busqueda">
-                    
-
-                        <h2 class="main__disqueria__busqueda__title">Opciones de Búsqueda</h2>
-
-                        <div class="main__disqueria__busqueda__opciones container-fluid">
-                            <div class="main__disqueria__busqueda__row row mb-3">
-                                <div class="main__disqueria__busqueda__col col-sm-12 col-md-6">
-                                    <label for="estilos">Estilo:</label>
-                                    <select name="estilos" id="estiloBusqueda" class="form-select">
-                                        
-                                        
-                                    </select>
-                                </div>
-
-                            </div>
-                            <div class="main__disqueria__busqueda__row row mb-3">
-                                <div class="main__disqueria__busqueda__col col-sm-12 col-md-6">
-                                    <label for="Intérprete:">Intérprete:</label>
-                                    <select name="interpretes" id="interpreteBusqueda" class="form-select">
-                                
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="main__disqueria__busqueda__row row mb-3">
-                                <div
-                                    class="main__disqueria__busqueda__col col-sm-12 col-md-6  d-flex justify-content-between">
-                                    <input type="text" placeholder="Buscar por nombre del álbum..." class="w-75 me-1">
-                                    <input type="button" class="btn btn-primary" value="Buscar">
-                                </div>
-                            </div>
-                            <div class="main__disqueria__busqueda__row row mb-3">
-                                <div class="main__disqueria__busqueda__col col-sm-12 col-md-6">
-                                    <label for="orden">Orden:</label>
-                                    <select name="orden" id="ordenListado" class="form-select">
-
-                                
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                    
-                </section>
-                <section class="main__disqueria__detalles">
-                    <h2 class="main__disqueria__detalles__title main__subtitulo">Detalles</h2>
-                    <div class="main__disqueria__detalles__container container-fluid">
-                        <div class="main__disqueria__detalles__row row">
-                            
-
-                            
-                        </div>
-                    </div>
-                </section>
+            <div class="carrito-footer">
+                
+                <!-- <h3>Total: $<span id="totalCarrito" style="width:80%"></span></h3>   -->
+                <a href="index.html" class="btn btn-primary m-3" >Seguir Comprando</a>
+                <button class="btn btn-success m-3" >Finalizar Compra</button>
             </div>
-        </form>    
+        </div>
     
     </main>
     
@@ -180,46 +135,7 @@
         
     </div>
 
-    <!-- The Modal Carrito -->
-    <div id="miCarrito" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Carrito de Compras</h2>
-                <button type="button" class="btn-close" id="botonCerrarCarrito"></button>
-            
-            
-            </div>
-            <div class="modal-body">
-                <table id="modal-table" class="table table-hover">
-                    <thead>
-                        <tr class="modal-titles">
-                            <th style="width:20%">Imagen</th>
-                            <th style="width:30%">Descripción</th>
-                            <th style="width:15%">P. Unit</th>
-                            <th style="width:10%">Cantidad</th>
-                            <th style="width:15%">Subtotal</th>
-                            <th style="width:10%"></th>
-                        </tr>    
-                    </thead>
-                    <tbody id="detallesTbody">
-
-                    </tbody>
-                    
-
-                    
-                </table>
-                
-            </div>
-            <div class="modal-footer text-end">
-                
-                <h3>Total: $<span id="totalCarrito" style="width:80%"></span></h3>  
-                <a href="checkout.html" class="modal-checkout btn btn-success"style="width:10%" >Checkout</a>
-            </div>
-        </div>
-
-    </div>
+    
 
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
@@ -228,10 +144,10 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
     <script src="./js/claseCd.js"></script>
-    <script src="./js/modal.js"></script>
+    <!-- <script src="./js/modal.js"></script> -->
     <script src="./js/listaCds.js"></script>
-    <script src="./js/combos.js"></script>
-    <script src="./js/index.js"></script>
+    
+    <script src="./js/checkout.js"></script>
     
 </body>
 
