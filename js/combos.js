@@ -87,6 +87,7 @@ function llenarCombos(arrayCds){
 
     comboInterpretes.addEventListener('change',()=>{
         comboEstilos.value= "";//vuelve al combo al elemento por defecto
+        comboOrden.value="";//vuelve el combo del orden al elemento por defecto
         comboInterpretes.value=='Todos'? mostrarListaCds(cds):
             mostrarListaCds(cds.filter(elemento=>elemento.interprete==comboInterpretes.value));
         
@@ -100,4 +101,41 @@ function llenarCombos(arrayCds){
         opciones+= `<option value="${orden}">${orden}</option>`;
     });
     comboOrden.innerHTML=opciones;
+    comboOrden.addEventListener('change',()=>{
+        
+        let selected = parseInt(comboOrden.selectedIndex);
+        switch (selected) {
+            case 0:
+                break;
+            case 1:
+                if(comboInterpretes.value=='Todos'){
+                    
+                    mostrarListaCds(cds.sort(SortArrayAZ));
+                }else{
+                    mostrarListaCds(cds.filter(elemento=>elemento.interprete==comboInterpretes.value).sort(SortArrayAZ));
+                }
+                    
+                break;
+            case 2:
+                if(comboInterpretes.value=='Todos'){
+                    
+                    mostrarListaCds(cds.sort(SortArrayZA));
+                }else{
+                    mostrarListaCds(cds.filter(elemento=>elemento.interprete==comboInterpretes.value).sort(SortArrayZA));
+                }
+            default:
+                break;
+        }
+    })
+}
+/* Funciones para el ordenamiento de los elementos del array */
+function SortArrayAZ(x,y){
+    if (x.nombre<y.nombre){return -1;}
+    if(x.nombre>y.nombre){return 1;}
+    return 0;
+}
+function SortArrayZA(x, y){
+    if (x.nombre > y.nombre) {return -1;}
+    if (x.nombre < y.nombre) {return 1;}
+    return 0;
 }
