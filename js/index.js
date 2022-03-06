@@ -248,23 +248,15 @@ function agregarHtmlCarrito(cd){
             confirmButtonText: 'Si, borralo!'
         }).then((result) => {
             if (result.isConfirmed) {
-                if(cd.cantidad == 1){
+                
                     let contenedor=document.getElementById('detallesTbody');//ubico al contenedor padre
                     let row=document.getElementById(`row${id}`);//al hijo
                     contenedor.removeChild(row); //quito el hijo
-                    actualizarStock(cd,false,1);//Actualizo el stock
+                    actualizarStock(cd,false,cd.cantidad);//Actualizo el stock
                     carritoDeCompras = carritoDeCompras.filter(item => item.id != id);//actualizo el array carrito
         
                     carritoDeCompras.length==0 && noHayProductos()
                     
-                }else{
-                    cd.cantidad --;
-                    actualizarStock(cd,false,1);//Actualizo el stock
-                    //document.getElementById(`cantidad${id}`).innerHTML = `<td id="cantidad${id}">${cd.cantidad}</td>`;
-                    document.getElementById(`input${id}`).value = `${cd.cantidad}`;
-                    document.getElementById(`subtotal${id}`).innerHTML = `<td id="subtotal${id}">${cd.cantidad*precio}</td>`;
-        
-                
                 }
                 actualizarCarritoDeCompras();//
                 localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
@@ -275,7 +267,7 @@ function agregarHtmlCarrito(cd){
                 'success'
                 )
             }
-        })
+        );
         
     });
     localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
