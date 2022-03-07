@@ -13,96 +13,7 @@ const detalleCarrito=document.getElementById('detallesTbody');
 
 
 
-/* funcion para agregar al carrito */
-/* function agregarAlCarrito(idCd) {
-    let cdRepetido=buscarRepetido(idCd);
-console.log(carritoDeCompras);
-    
-    if(cdRepetido){
-        let {precio, stock, id}=cdRepetido;//desestructurando el obj Cd
-        let inputCantidad=parseInt(document.getElementById(`inputCantidad${id}`).value);
-        if (inputCantidad>0 && inputCantidad<=stock) {
-            cdRepetido.cantidad+=inputCantidad;
 
-            //document.getElementById(`cantidad${id}`).innerHTML = `<td id="cantidad${id}">${cdRepetido.cantidad}</td>` 
-            document.getElementById(`input${id}`).value=cdRepetido.cantidad;
-            document.getElementById(`subtotal${id}`).innerHTML = `<td id="subtotal${id}">${cdRepetido.cantidad*precio}</td>`;
-            actualizarCarritoDeCompras();  
-
-            
-            actualizarStock(cdRepetido,true,inputCantidad);//actualiza el stock en el array
-            Toastify({
-                text: "CD agregado al carrito",
-                duration: 1500,
-                destination: "https://github.com/apvarun/toastify-js",
-                newWindow: true,
-                close: false,
-                gravity: "top", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                    background: "linear-gradient(to right, #00b09b, #96c93d)",
-                },
-                onClick: function(){} // Callback after click
-            }).showToast();
-
-            
-        } else {
-            
-            Swal.fire({
-                title: 'Error!',
-                text: 'Cantidad de compra no válida o superior al stock. Favor de verificar la cantidad ingresada',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            
-        }    
-        document.getElementById(`inputCantidad${id}`).value=1;
-
-        
-    }else{
-            let cdComprar = cds.find(elemento => elemento.id ==idCd);
-            let { stock, id}=cdComprar;//desestructurando el obj Cd
-            let inputCantidad=parseInt(document.getElementById(`inputCantidad${id}`).value);
-            
-            if (inputCantidad>0 && inputCantidad<=stock) {
-                cdComprar.cantidad=inputCantidad;
-                carritoDeCompras.push(cdComprar);
-                actualizarCarritoDeCompras();
-                agregarHtmlCarrito(cdComprar);
-                actualizarStock(cdComprar,true,inputCantidad);//actualiza el stock en el array
-
-                Toastify({
-                    text: "CD agregado al carrito",
-                    duration: 1500,
-                    destination: "https://github.com/apvarun/toastify-js",
-                    newWindow: true,
-                    close: false,
-                    gravity: "top", // `top` or `bottom`
-                    position: "right", // `left`, `center` or `right`
-                    stopOnFocus: true, // Prevents dismissing of toast on hover
-                    style: {
-                        background: "linear-gradient(to right, #00b09b, #96c93d)",
-                    },
-                    onClick: function(){} // Callback after click
-                }).showToast();
-                
-
-            } else {
-                Swal.fire({
-                        title: 'Error!',
-                        text: 'Cantidad de compra no válida o superior al stock. Favor de verificar la cantidad ingresada',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                })
-            }    
-            document.getElementById(`inputCantidad${id}`).value=1;
-    } 
-
-
-} */
-
-/* fin funcion para agregar al carrito */
 
 /*funcion para actualizar el stock de un producto */
 
@@ -131,20 +42,79 @@ function mostrarCarrito(){
 
         console.log(item);
 
-        let {nombre, imagen, precio, id}=item;//desestructurando el obj Cd
+        let {nombre, imagen, precio, stock, id}=item;//desestructurando el obj Cd
         let fila=document.createElement('tr');
         fila.id=`row${id}`;
         fila.innerHTML=`<td><img src="${imagen}" alt="${nombre}" width="40%"/></td>
                         <td>${nombre}</td>
                         <td>${precio}</td>
-                        <td>${item.cantidad}</td>
-                        <td>${item.cantidad*precio}</td>
+                        <td>
+                            <input id="input${id}" type="number" value="${item.cantidad}" min="1" max="${stock}" style="width:3rem" >
+                        </td>
+                        <td id="subtotal${id}">${item.cantidad*precio}</td>
                         <td ><button id="btnEliminar${id}" class="boton-eliminar"><i class="fas fa-trash-alt"></i></button></td>`;
                         
         /* let filaMensaje=document.getElementById('celdaMensajeCarritoVacio')
         filaMensaje && quitarMensajeCarritoVacio(filaMensaje); //Quito el mensaje de carrito vacío */
         detalleCarrito.appendChild(fila);
+        let inputDelCarrito=document.getElementById(`input${id}`);
+        inputDelCarrito.addEventListener('focus',()=>{
+            valorAnterior=inputDelCarrito.value;
+        });
+        inputDelCarrito.addEventListener('change',()=>{
+            item.cantidad=parseInt(inputDelCarrito.value);//tomo el valor del input del carrito
+
+            document.getElementById(`subtotal${id}`).innerHTML = `<td id="subtotal${id}">${item.cantidad*precio}</td>`;//actualizo el sub
+            //valorAnterior<inputDelCarrito.value?actualizarStock(item,true,1):actualizarStock(item,false,1);
+            totalCarrito=totalizarCarrito();
+            document.getElementById(`totalFinal`).innerHTML=`<td id="totalFinal"><strong>${totalCarrito}</strong> </td> <td></td>`;
+
+            localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
+        }) 
+    
+        /*Agrego escucha del evento click al boton */
+        let botonEliminar = document.getElementById(`btnEliminar${id}`);//obtengo el boton
+        
+        /* Agrego escucha del evento click al boton */
+        botonEliminar.addEventListener('click',()=>{
+            Swal.fire({
+                title: 'Está seguro?',
+                text: "No podrá deshacer el cambio!",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText:'Cancelar',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, borralo!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                        let contenedor=document.getElementById('detallesTbody');//ubico al contenedor padre
+                        let row=document.getElementById(`row${id}`);//al hijo
+                        contenedor.removeChild(row); //quito el hijo
+                        //actualizarStock(item,false,item.cantidad);//Actualizo el stock
+                        carritoDeCompras = carritoDeCompras.filter(item => item.id != id);//actualizo el array carrito
+                        console.log(carritoDeCompras);//ver el carrito
+                        totalCarrito=totalizarCarrito();
+                        document.getElementById(`totalFinal`).innerHTML=`<td id="totalFinal"><strong>${totalCarrito}</strong> </td> <td></td>`;
+                        carritoDeCompras.length==0 && noHayProductos()
+                        localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));    
+                    }
+                    
+                    
+
+                    Swal.fire(
+                    'Borrado!',
+                    'Producto quitado del carrito.',
+                    'success'
+                    );
+                }
+            );
+            
+        });
+
     });
+
     let fila=document.createElement('tr');
         fila.id=`rowTotal`;
         fila.innerHTML=`<td></td>
@@ -154,67 +124,8 @@ function mostrarCarrito(){
                         <td id="totalFinal"><strong>${totalCarrito}</strong> </td> <td></td>`;
         detalleCarrito.appendChild(fila);
 
-    /* let inputDelCarrito=document.getElementById(`input${id}`);
-    inputDelCarrito.addEventListener('focus',()=>{
-        valorAnterior=inputDelCarrito.value;
-    });
-    inputDelCarrito.addEventListener('change',()=>{
-        cd.cantidad=parseInt(inputDelCarrito.value);//tomo el valor del input del carrito
-
-        document.getElementById(`subtotal${id}`).innerHTML = `<td id="subtotal${id}">${cd.cantidad*precio}</td>`;//actualizo el sub
-        valorAnterior<inputDelCarrito.value?actualizarStock(cd,true,1):actualizarStock(cd,false,1);
-        
-        actualizarCarritoDeCompras();
-
-        localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
-    }) */
     
-    /* let botonEliminar = document.getElementById(`btnEliminar${id}`);//obtengo el boton
-    
-    /* Agrego escucha del evento click al boton */
-    /* botonEliminar.addEventListener('click',()=>{
-        Swal.fire({
-            title: 'Está seguro?',
-            text: "No podrá deshacer el cambio!",
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonText:'Cancelar',
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, borralo!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if(cd.cantidad == 1){
-                    let contenedor=document.getElementById('detallesTbody');//ubico al contenedor padre
-                    let row=document.getElementById(`row${id}`);//al hijo
-                    contenedor.removeChild(row); //quito el hijo
-                    actualizarStock(cd,false,1);//Actualizo el stock
-                    carritoDeCompras = carritoDeCompras.filter(item => item.id != id);//actualizo el array carrito
-        
-                    carritoDeCompras.length==0 && noHayProductos()
-                    
-                }else{
-                    cd.cantidad --;
-                    actualizarStock(cd,false,1);//Actualizo el stock */
-                    //document.getElementById(`cantidad${id}`).innerHTML = `<td id="cantidad${id}">${cd.cantidad}</td>`;
-                  /*   document.getElementById(`input${id}`).value = `${cd.cantidad}`;
-                    document.getElementById(`subtotal${id}`).innerHTML = `<td id="subtotal${id}">${cd.cantidad*precio}</td>`; */
-        
-                
-                /* }
-                actualizarCarritoDeCompras();//
-                localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
-
-                Swal.fire(
-                'Borrado!',
-                'Producto quitado del carrito.',
-                'success'
-                )
-            }
-        }) */
-        
-   /*  });
-    localStorage.setItem('carrito', JSON.stringify(carritoDeCompras)) */
+    localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
 }
 /* fin funcion agregar al html del carrito */
 
@@ -258,6 +169,20 @@ async function cargarArrayCds() {
     recuperarCarrito();    
     //return array;
     mostrarCarrito();
+}
+
+function noHayProductos(){
+    detalleCarrito.innerHTML="";//limpio para que no me repita el mensaje
+    let fila=document.createElement('tr');
+    fila.id="celdaMensajeCarritoVacio";
+    fila.innerHTML=`<td class="text-center" colspan="6"><p class="text-danger fs-3 fw-bold">Carrito vacío</p></td>`
+    detalleCarrito.appendChild(fila);
+    
+    manejarBotonFinalizar(false);
+}
+function manejarBotonFinalizar(valorLogico){
+    valorLogico?document.getElementById(`btnFinalizar`).removeAttribute('disabled'):
+    document.getElementById('btnFinalizar').setAttribute('disabled',true);
 }
 
 /* Comienzo */
