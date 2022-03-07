@@ -1,8 +1,8 @@
 /* funcion para llenar los combos */
 /* funcion para obtener los distintos intérpretes */
 let cdsFiltrado=[];
-let filtradoInterprete=false;
-let filtradoEstilo=false;
+/* let filtradoInterprete=false;
+let filtradoEstilo=false; */
 function obtenerInterpretes(arrayCds){
     //Busco los nombres de los intérpretes únicamente
     console.log(arrayCds);
@@ -41,32 +41,27 @@ function llenarCombos(arrayCds){
     })
     
     comboEstilos.innerHTML = opciones;
+    /*fin llenado de opciones del combo */
 
+    /* eventos del combo de estilos */
     
     comboEstilos.addEventListener('change',()=>{
         comboInterpretes.value= "";//vuelve al combo al elemento por defecto
-        if(comboEstilos.value=='Todos'){
-            /* cdsFiltrado=[]; */
-            inicializar();
+        comboOrden.value="";
+        if (comboEstilos.value=='Todos') {
             mostrarListaCds(cds);
-            //filtradoEstilo=false;
-        }else{
-            //filtradoEstilo=true;
-            if(filtradoInterprete){
-                cdsFiltrado=filtrarPorEstilo(cdsFiltrado,comboEstilos.value);
-                
-            }
-            else{
-                cdsFiltrado=filtrarPorEstilo(cds,comboEstilos.value);
-            }
-            mostrarListaCds(cdsFiltrado);
+        } else {
+            cdsFiltrado=filtrarPorEstilo(cds,comboEstilos.value);
+            
+            mostrarListaCds(cdsFiltrado);    
         }
-        filtradoEstilo==cdsFiltrado.length>0 && true;
+    
+        
         /* comboEstilos.value=='Todos'?mostrarListaCds(cds):
             mostrarListaCds(cds.filter(elemento=>elemento.estilo==comboEstilos.value)); */
 
     })
- /* ************************************ */
+ /* fin de eventos del combo estilos */
 
   /* Lleno combo de interpretes */
     opciones=`<option value="" disabled selected>Seleccione Intérprete</option>
@@ -80,26 +75,20 @@ function llenarCombos(arrayCds){
         opciones+=`<option value="${interprete}">${interprete}</option>`;
     });
     comboInterpretes.innerHTML = opciones;
+    /* fin del llenodo del combo de interpretes */
 
+    /* eventos del combo de interpretes */
     comboInterpretes.addEventListener('change',()=>{
         comboEstilos.value= "";//vuelve al combo al elemento por defecto
         comboOrden.value="";//vuelve el combo del orden al elemento por defecto
 
         if(comboInterpretes.value=='Todos'){
-            //cdsFiltrado=[];
-            inicializar();
             mostrarListaCds(cds);
         }else{
-            if(filtradoEstilo){
-                cdsFiltrado=filtrarPorInterprete(cdsFiltrado,comboInterpretes.value);
-                
-            }
-            else{
-                cdsFiltrado=filtrarPorInterprete(cds,comboInterpretes.value);
-            }
+            cdsFiltrado=filtrarPorInterprete(cds,comboInterpretes.value);
+        
             mostrarListaCds(cdsFiltrado);
         }
-        filtradoInterprete=cdsFiltrado.length>0 && true;
         /* cdsFiltrado=cds.filter(elemento=>elemento.interprete==comboInterpretes.value); */
 
 /*        comboInterpretes.value=='Todos'? mostrarListaCds(cds):
@@ -189,13 +178,13 @@ function SortArrayZA(x, y){
     if (x.nombre < y.nombre) {return 1;}
     return 0;
 }
-function SortArrayPrecioAsc(x,y){
+function SortArrayPrecioDesc(x,y){
     if (x.precio > y.precio) {return -1;}
     if (x.precio < y.precio) {return 1;}
     return 0;
 }
-function SortArrayPrecioDesc(x,y){
+function SortArrayPrecioAsc(x,y){
     if (x.precio < y.precio) {return -1;}
-    if (x.precio > y.precio) {return 1;}
+    if (x.precio < y.precio) {return 1;}
     return 0;
 }
